@@ -1,7 +1,9 @@
-import pytest
-import allure
-from api.projects_api import ProjectsAPI
 import uuid
+
+import allure
+import pytest
+
+from api.projects_api import ProjectsAPI
 
 
 @allure.title("Создание проекта (позитивный)")
@@ -11,13 +13,8 @@ def test_create_project(user_id):
     api = ProjectsAPI()
 
     title = f"Test Project {uuid.uuid4()}"
-    
-    data = {
-        "title": "Test Project",
-        "users": {
-            user_id: "admin"
-        }
-    }
+
+    data = {"title": title, "users": {user_id: "admin"}}
 
     with allure.step("Создаем проект"):
         response = api.create_project(data)
@@ -32,11 +29,7 @@ def test_create_project(user_id):
 def test_create_project_no_title(user_id):
     api = ProjectsAPI()
 
-    data = {
-        "users": {
-            user_id: "admin"
-        }
-    }
+    data = {"users": {user_id: "admin"}}
 
     response = api.create_project(data)
 

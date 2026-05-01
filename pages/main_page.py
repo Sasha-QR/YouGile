@@ -1,12 +1,15 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class MainPage:
     # --- локаторы ---
     PROFILE_ICON = (By.CSS_SELECTOR, "img")
-    CREATE_PROJECT_BUTTON = (By.XPATH, "//button[contains(., 'Создать')] | //div[contains(., 'Создать')]")
+    CREATE_PROJECT_BUTTON = (
+        By.XPATH,
+        "//button[contains(., 'Создать')] | //div[contains(., 'Создать')]",
+    )
     PROJECT_NAME_INPUT = (By.CSS_SELECTOR, "input")
     SUBMIT_BUTTON = (By.XPATH, "//button[contains(., 'Создать')]")
 
@@ -17,11 +20,13 @@ class MainPage:
     # --- загрузка страницы ---
     def is_loaded(self):
         self.wait.until(
-            lambda d: d.execute_script("return document.readyState") == "complete"
+            lambda d: d.execute_script(
+                "return document.readyState"
+                ) == "complete"
         )
         return self.wait.until(
             EC.presence_of_element_located(self.PROFILE_ICON)
-        )
+            )
 
     # --- создание проекта ---
     def create_project(self, name: str):
@@ -37,9 +42,7 @@ class MainPage:
         )
         input_field.send_keys(name)
 
-        self.wait.until(
-            EC.element_to_be_clickable(self.SUBMIT_BUTTON)
-        ).click()
+        self.wait.until(EC.element_to_be_clickable(self.SUBMIT_BUTTON)).click()
 
     # --- проверка проекта ---
     def project_exists(self, name: str):

@@ -1,10 +1,10 @@
-import pytest
 import uuid
-from selenium import webdriver
-from api.projects_api import ProjectsAPI
-from api.users_api import UsersAPI
+
+import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+
+from api.projects_api import ProjectsAPI
 
 
 @pytest.fixture
@@ -18,9 +18,7 @@ def project_id(user_id: str) -> str:
 
     data = {
         "title": f"Test Project {uuid.uuid4()}",
-        "users": {
-            user_id: "admin"
-        }
+        "users": {user_id: "admin"},
     }
 
     response = api.create_project(data)
